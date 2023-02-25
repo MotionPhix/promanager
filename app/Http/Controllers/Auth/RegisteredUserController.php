@@ -13,41 +13,45 @@ use Illuminate\Validation\Rules;
 
 class RegisteredUserController extends Controller
 {
-    /**
-     * Display the registration view.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function create()
-    {
-        return view('auth.register');
-    }
+  /**
+   * Display the registration view.
+   *
+   * @return \Illuminate\View\View
+   */
+  public function create()
+  {
+    $roles = \App\Models\Role::orderBy('name')->pluck('name', 'id');
+    return view('auth.register', compact($roles));
+  }
 
-    /**
-     * Handle an incoming registration request.
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     *
-     * @throws \Illuminate\Validation\ValidationException
-     */
-    public function store(Request $request)
-    {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
+  /**
+   * Handle an incoming registration request.
+   *
+   * @return \Illuminate\Http\RedirectResponse
+   *
+   * @throws \Illuminate\Validation\ValidationException
+   */
+  public function store(Request $request)
+  {
+    $request->validate([
+      'name' => ['required', 'string', 'max:255'],
+      'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
+      'password' => ['required', 'confirmed', Rules\Password::defaults()],
+      'role' => 'required|exists:roles,id', // validating role
+    ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+    $user = User::create([
+      'name' => $request->name,
+      'email' => $request->email,
+      'password' => Hash::make($request->password),
+    ]);
 
-        event(new Registered($user));
+    $user->roles()->attach($request->role);
 
-        Auth::login($user);
+    event(new Registered($user));
 
-        return redirect(RouteServiceProvider::HOME);
-    }
+    Auth::login($user);
+
+    return redirect(RouteServiceProvider::HOME);
+  }
 }
