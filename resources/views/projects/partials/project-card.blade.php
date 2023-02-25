@@ -12,9 +12,14 @@
         {{ $project->end_date }}
       </span>
     </p>
-    <p class="text-sm text-gray-500 mb-2">Budget: $50,000</p>
+
+    <p class="text-sm text-gray-500 mb-2">
+      <span></span>
+      <span>
+        {{ $project->budget }}
+      </span>
+    </p>
     <p class="text-sm text-gray-500 mb-2">Assigned to: John Doe, Jane Smith, Alex Kim</p>
     <p class="text-sm text-gray-500 mb-2">Status: In Progress</p>
-    <a href="#" class="text-sm text-gray-700 hover:text-blue-500">View Project</a>
   </div>
 </x-splade-link>

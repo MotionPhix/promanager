@@ -15,6 +15,6 @@ export default defineConfig({
   darkMode: 'class',
 
   rules: [
-    ['btn', 'bg-gray-800 text-gray-300 dark:text-gray-400 rounded font-semibold px-2 py-1 transition duration-300 dark:bg-gray-800 hover:(dark:text-gray-500 bg-gray-700)'],
+    ['btn', 'bg-gray-800 text-gray-300 dark:text-gray-400 rounded font-semibold px-1.5 py-0.5 transition duration-300 dark:bg-gray-800 hover:(dark:text-gray-500 bg-gray-700)'],
   ],
 })

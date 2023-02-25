@@ -5,6 +5,7 @@ import '@protonemedia/laravel-splade/dist/style.css'
 import { createApp } from 'vue/dist/vue.esm-bundler.js'
 import { SpladePlugin, renderSpladeApp } from '@protonemedia/laravel-splade'
 
+import { ArrowRightIcon } from '@heroicons/vue/20/solid'
 import config from '../../twind.config'
 
 const el = document.getElementById('app')
@@ -19,5 +20,8 @@ createApp({
     max_keep_alive: 10,
     transform_anchors: false,
     progress_bar: true,
+    components: {
+      ArrowRightIcon,
+    },
   })
   .mount(el)

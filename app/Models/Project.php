@@ -40,6 +40,6 @@ class Project extends Model
 
   public function members()
   {
-    return $this->hasManyThrough(User::class, Task::class);
+    return $this->hasManyThrough(User::class, Task::class, 'project_id', 'id', 'id', 'user_id');
   }
 }

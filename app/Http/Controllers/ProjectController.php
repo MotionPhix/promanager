@@ -12,7 +12,7 @@ class ProjectController extends Controller
    */
   public function index()
   {
-    $projects = Project::paginate();
+    $projects = Project::latest()->paginate();
 
     return view('projects.index', compact('projects'));
   }
@@ -40,7 +40,9 @@ class ProjectController extends Controller
   {
     $this->authorize('view', $project);
 
-    return view('profile.show');
+    return view('projects.show', [
+      'project' => $project
+    ]);
   }
 
   /**
