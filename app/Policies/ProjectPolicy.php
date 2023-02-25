@@ -13,7 +13,7 @@ class ProjectPolicy
    */
   public function viewAny(User $user): bool
   {
-    //
+    return $user->hasRole('admin');
   }
 
   /**
@@ -21,7 +21,21 @@ class ProjectPolicy
    */
   public function view(User $user, Project $project): bool
   {
-    //
+    if ($user->hasRole('admin')) {
+      return true;
+    }
+
+    if ($user->id === $project->user_id) {
+      return true;
+    }
+
+    foreach ($project->tasks as $task) {
+      if ($task->user_id === $user->id) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   /**

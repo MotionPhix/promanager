@@ -23,7 +23,7 @@ class AuthServiceProvider extends ServiceProvider
   public function boot(): void
   {
     Gate::define('see-all-drafts', function ($user) {
-      return $user->inRole('admin');
+      return $user->hasRole('admin');
     });
   }
 }
