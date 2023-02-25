@@ -35,7 +35,7 @@ class Project extends Model
 
   public function tasks()
   {
-    return $this->hasMany(Tasks::class);
+    return $this->hasMany(Task::class);
   }
 
   public function members()
