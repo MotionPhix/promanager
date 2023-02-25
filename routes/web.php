@@ -30,7 +30,7 @@ Route::middleware('splade')->group(function () {
 
   Route::middleware('auth')->group(function () {
     Route::get('/dashboard', function () {
-      return view('dashboard');
+      return view('dashboard.index');
     })->middleware(['verified'])->name('dashboard');
 
     Route::resource('projects', \App\Http\Controllers\ProjectController::class);
