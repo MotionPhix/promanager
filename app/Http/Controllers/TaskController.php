@@ -2,64 +2,72 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Project;
 use App\Models\Task;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
+  /**
+   * Display a listing of the resource.
+   */
+  public function index()
+  {
+    //
+  }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+  /**
+   * Show the form for creating a new resource.
+   */
+  public function create(Project $project)
+  {
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+    $task = new Task;
+    $users = $task->assignees();
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Task $task)
-    {
-        //
-    }
+    return view('tasks.create', [
+      'project' => $project,
+      'users' => $users
+    ]);
+  }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Task $task)
-    {
-        //
-    }
+  /**
+   * Store a newly created resource in storage.
+   */
+  public function store(Request $request)
+  {
+    dd($request);
+  }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Task $task)
-    {
-        //
-    }
+  /**
+   * Display the specified resource.
+   */
+  public function show(Task $task)
+  {
+    //
+  }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Task $task)
-    {
-        //
-    }
+  /**
+   * Show the form for editing the specified resource.
+   */
+  public function edit(Task $task)
+  {
+    //
+  }
+
+  /**
+   * Update the specified resource in storage.
+   */
+  public function update(Request $request, Task $task)
+  {
+    //
+  }
+
+  /**
+   * Remove the specified resource from storage.
+   */
+  public function destroy(Task $task)
+  {
+    //
+  }
 }

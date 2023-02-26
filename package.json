@@ -13,12 +13,15 @@
     "@twind/preset-container-queries": "^1.0.7",
     "@twind/preset-tailwind": "^1.1.4",
     "@twind/preset-tailwind-forms": "^1.1.2",
+    "@vicons/carbon": "^0.12.0",
+    "@vicons/utils": "^0.1.4",
     "@vitejs/plugin-vue": "^3.0.0",
     "@vueuse/core": "^9.13.0",
     "axios": "^1.1.2",
     "eslint": "^8.34.0",
     "laravel-vite-plugin": "^0.5.0",
     "twind": "^0.16.19",
+    "vfonts": "^0.0.3",
     "vite": "^3.0.0",
     "vue": "^3.2.41"
   }

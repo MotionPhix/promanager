@@ -13,8 +13,8 @@ class TaskSeeder extends Seeder
   public function run(): void
   {
     // Get all projects
-    $projects = \App\Models\Project::all();
-    $users = \App\Models\User::all();
+    $projects = \App\Models\Project::pluck('id');
+    $users = \App\Models\User::pluck('id');
 
     // Generate 50 tasks
     for ($i = 0; $i < 25; $i++) {

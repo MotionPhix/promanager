@@ -34,6 +34,7 @@ Route::middleware('splade')->group(function () {
     })->middleware(['verified'])->name('dashboard');
 
     Route::resource('projects', \App\Http\Controllers\ProjectController::class);
+    Route::resource('projects.tasks', \App\Http\Controllers\TaskController::class);
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

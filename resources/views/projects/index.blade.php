@@ -3,6 +3,15 @@
     <h2 class="font-semibold text-xl text-gray-800 leading-tight">
       {{ __('Projects') }}
     </h2>
+
+    <span class="flex-1" />
+
+    <Link
+      href="{{ route('projects.create') }}"
+      class="btn btn-primary"
+      modal>
+      <PlusIcon class="h-5" /> New project
+    </Link>
   </x-slot>
 
   <div class="py-12">

@@ -44,7 +44,7 @@ class User extends Authenticatable
 
   public function roles()
   {
-    return $this->belongsToMany(Role::class, 'role_users');
+    return $this->belongsToMany(Role::class, 'role_user');
   }
 
   /**
@@ -64,8 +64,13 @@ class User extends Authenticatable
   /**
    * Checks if the user belongs to role.
    */
-  public function hasRole(string $roleSlug)
+  // public function hasRole(string $roleSlug)
+  // {
+  //   return $this->roles()->where('slug', $roleSlug)->count() == 1;
+  // }
+
+  public function hasRole(array $roleSlugs)
   {
-    return $this->roles()->where('slug', $roleSlug)->count() == 1;
+    return $this->roles()->whereIn('slug', $roleSlugs)->count() > 0;
   }
 }

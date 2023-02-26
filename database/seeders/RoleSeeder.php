@@ -15,9 +15,26 @@ class RoleSeeder extends Seeder
     $permissions = \App\Models\Permission::all();
 
     \App\Models\Role::create([
-      'name' => 'Designer',
-      'slug' => 'designer',
+      'name' => 'Admin',
+      'slug' => 'admin',
       'permissions' => [
+        $permissions->random()->slug => true,
+        $permissions->random()->slug => true,
+        $permissions->random()->slug => true,
+        $permissions->random()->slug => true,
+        $permissions->random()->slug => true,
+        $permissions->random()->slug => true,
+        $permissions->random()->slug => true,
+        $permissions->random()->slug => true,
+        $permissions->random()->slug => true,
+      ]
+    ]);
+
+    \App\Models\Role::create([
+      'name' => 'Manager',
+      'slug' => 'manager',
+      'permissions' => [
+        $permissions->random()->slug => true,
         $permissions->random()->slug => true,
         $permissions->random()->slug => true,
       ]
@@ -34,10 +51,9 @@ class RoleSeeder extends Seeder
     ]);
 
     \App\Models\Role::create([
-      'name' => 'Manager',
-      'slug' => 'manager',
+      'name' => 'Designer',
+      'slug' => 'designer',
       'permissions' => [
-        $permissions->random()->slug => true,
         $permissions->random()->slug => true,
         $permissions->random()->slug => true,
       ]

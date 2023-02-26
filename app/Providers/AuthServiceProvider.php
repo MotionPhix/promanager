@@ -22,8 +22,8 @@ class AuthServiceProvider extends ServiceProvider
    */
   public function boot(): void
   {
-    Gate::define('see-all-drafts', function ($user) {
-      return $user->hasRole('admin');
+    Gate::define('view-all-projects', function ($user) {
+      return $user->hasRole(['admin', 'manager']);
     });
   }
 }

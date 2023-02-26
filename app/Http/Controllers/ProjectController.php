@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class ProjectController extends Controller
 {
@@ -12,7 +14,22 @@ class ProjectController extends Controller
    */
   public function index()
   {
-    $projects = Project::latest()->paginate();
+    // $projects = Project::latest()->paginate();
+    // $projects = Project::viewableBy(Auth::user())->get();
+
+    $user = auth()->user();
+
+    if (Gate::allows('view-all-projects')) {
+      // User has permission to view all projects
+      $projects = Project::all();
+    } else {
+      // User can only view projects they created or are assigned to
+      $projects = Project::where('user_id', $user->id)
+        ->orWhereHas('tasks', function ($query) use ($user) {
+          $query->where('user_id', $user->id);
+        })
+        ->get();
+    }
 
     return view('projects.index', compact('projects'));
   }
@@ -22,7 +39,8 @@ class ProjectController extends Controller
    */
   public function create()
   {
-    //
+    $customers = \App\Models\Customer::pluck('name', 'id');
+    return view('projects.create');
   }
 
   /**

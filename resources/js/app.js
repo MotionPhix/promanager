@@ -2,10 +2,23 @@ import './bootstrap'
 import { install } from '@twind/core'
 import '@protonemedia/laravel-splade/dist/style.css'
 
+import 'vfonts/FiraSans.css'
+import { Icon } from '@vicons/utils'
+
+import UserAccess from '@vicons/carbon/UserAccess'
+
 import { createApp } from 'vue/dist/vue.esm-bundler.js'
 import { SpladePlugin, renderSpladeApp } from '@protonemedia/laravel-splade'
 
-import { ArrowRightIcon } from '@heroicons/vue/20/solid'
+import {
+  ArrowRightIcon,
+  ClipboardDocumentCheckIcon as CheckIcon,
+  BookmarkSquareIcon as DeadlineIcon,
+  InboxIcon,
+  PlusIcon,
+  UserIcon,
+  UserPlusIcon,
+} from '@heroicons/vue/20/solid'
 import config from '../../twind.config'
 
 const el = document.getElementById('app')
@@ -22,6 +35,14 @@ createApp({
     progress_bar: true,
     components: {
       ArrowRightIcon,
+      PlusIcon,
+      CheckIcon,
+      UserIcon,
+      InboxIcon,
+      Icon,
+      UserAccess,
+      UserPlusIcon,
+      DeadlineIcon,
     },
   })
   .mount(el)
