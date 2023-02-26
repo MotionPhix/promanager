@@ -31,7 +31,7 @@
           </span>
 
           <span class="text-xs text-{{ $project->time_colour ? 'green' : 'red' }}-500">
-            {{ $project->end_date->diffForHumans() }}
+            Deadline {{ $project->end_date->lt(now()) ? 'was' : 'is' }} {{ $project->end_date->diffForHumans() }}
           </span>
         </div>
       </p>

@@ -47,12 +47,23 @@ class RoleSeeder extends Seeder
         $permissions->random()->slug => true,
         $permissions->random()->slug => true,
         $permissions->random()->slug => true,
+        $permissions->random()->slug => true,
       ]
     ]);
 
     \App\Models\Role::create([
       'name' => 'Designer',
       'slug' => 'designer',
+      'permissions' => [
+        $permissions->random()->slug => true,
+        $permissions->random()->slug => true,
+        $permissions->random()->slug => true,
+      ]
+    ]);
+
+    \App\Models\Role::create([
+      'name' => 'Production',
+      'slug' => 'production',
       'permissions' => [
         $permissions->random()->slug => true,
         $permissions->random()->slug => true,

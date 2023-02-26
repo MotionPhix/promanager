@@ -22,8 +22,10 @@ class TaskController extends Controller
   public function create(Project $project)
   {
 
-    $task = new Task;
+    $task = new Task();
     $users = $task->assignees();
+
+    dd($users);
 
     return view('tasks.create', [
       'project' => $project,

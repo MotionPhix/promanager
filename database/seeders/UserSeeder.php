@@ -13,10 +13,10 @@ class UserSeeder extends Seeder
   public function run(): void
   {
     $roles = \App\Models\Role::pluck('id');
-    $users = \App\Models\User::factory(10)->create();
+    $users = \App\Models\User::factory(13)->create();
 
     $users->each(function ($user) use ($roles) {
-      $user->roles()->attach($roles->random()->id);
+      $user->roles()->attach($roles->random());
     });
   }
 }

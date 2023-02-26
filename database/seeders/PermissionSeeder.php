@@ -46,6 +46,10 @@ class PermissionSeeder extends Seeder
         'slug' => 'update_task'
       ],
       [
+        'name' => 'Comment on task',
+        'slug' => 'comment_on_task'
+      ],
+      [
         'name' => 'Remove Member',
         'slug' => 'remove_member'
       ],

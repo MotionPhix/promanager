@@ -27,13 +27,15 @@ class Task extends Model
     $excludedRoles = ['admin', 'manager'];
 
     $users = DB::table('users')
-      ->select('users.*')
+      ->select(['users.id', 'users.name'])
       ->leftJoin('role_user', 'users.id', '=', 'role_user.user_id')
       ->leftJoin('roles', 'role_user.role_id', '=', 'roles.id')
       ->where('users.id', '<>', $loggedInUserId)
-      ->whereNotIn('roles.name', $excludedRoles)
-      ->orderBy('name')
+      ->whereNotIn('roles.slug', $excludedRoles)
+      ->orderBy('users.name')
       ->groupBy('users.id')
-      ->getTuneIcons();
+      ->get();
+
+    return $users;
   }
 }
