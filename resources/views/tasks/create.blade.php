@@ -29,7 +29,10 @@
 
           @foreach ($users as $user)
             <option value="{{ $user->id }}">
-              {{ $user->name }}
+              <span class="flex flex-col">
+                <span>{{ $user->id }}</span>
+                <span>{{ $user->name }}</span>
+              </span>
             </option>
           @endforeach
 

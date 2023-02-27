@@ -32,14 +32,14 @@
           {{-- project details --}}
           <div class="container mx-auto px-4 py-8">
             <div class="flex flex-wrap -mx-4">
-              <div class="w-full md:w-2/3 px-4 mb-8">
+              <section class="w-full md:w-2/3 px-4 mb-8 space-y-6">
                 <div class="bg-white rounded-lg shadow overflow-hidden">
-                  <div class="px-4 py-4 border-b">
+                  <div class="px-4 pt-4">
                     <h2 class="text-lg font-semibold">{{ $project->name }}</h2>
                     <p class="text-sm text-gray-600">{{ $project->customer?->first_name }}</p>
                   </div>
 
-                  <div class="px-4 py-4">
+                  <div class="px-4 pb-4">
                     <p class="text-gray-600">{{ $project->description }}</p>
                   </div>
 
@@ -71,9 +71,25 @@
                     </ul> --}}
                   </div>
                 </div>
-              </div>
 
-              <div class="w-full md:w-1/3 px-4 mb-8">
+                {{-- tasks section --}}
+                <div class="bg-white rounded-lg shadow overflow-hidden">
+                  <div class="px-4 py-4">
+                    <h2 class="text-lg font-semibold">Tasks</h2>
+                    <p class="text-xs text-gray-400">Related to this project only</p>
+                  </div>
+
+                  <div class="px-4 py-4 border-t">
+                    <ul class="list-disc pl-6">
+                      @foreach ($project->tasks as $task)
+                      <li>{{ $task->name }}</li>
+                      @endforeach
+                    </ul>
+                  </div>
+                </div>
+              </section>
+
+              <section class="w-full md:w-1/3 px-4 mb-8">
                 <div class="bg-white rounded-lg shadow overflow-hidden">
                   <div class="px-4 py-4 border-b">
                     <h3 class="text-lg font-semibold">Project Details</h3>
@@ -86,7 +102,7 @@
                     <p class="text-sm text-gray-600">Deadline: {{ $project->end_date }}</p>
                   </div>
                 </div>
-              </div>
+              </section>
             </div>
           </div>
 
