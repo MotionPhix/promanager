@@ -1,11 +1,15 @@
 import './bootstrap'
-import { install } from '@twind/core'
+// import { install } from '@twind/core'
+import 'windi.css'
 import '@protonemedia/laravel-splade/dist/style.css'
 
 import 'vfonts/FiraSans.css'
 import { Icon } from '@vicons/utils'
 
 import UserAccess from '@vicons/carbon/UserAccess'
+import MoreHorizontal20Regular from '@vicons/fluent/MoreHorizontal20Regular'
+import NoteEdit20Regular from '@vicons/fluent/NoteEdit20Regular'
+import Delete20Regular from '@vicons/fluent/Delete20Regular'
 
 import { createApp } from 'vue/dist/vue.esm-bundler.js'
 import { SpladePlugin, renderSpladeApp } from '@protonemedia/laravel-splade'
@@ -19,12 +23,15 @@ import {
   UserIcon,
   UserPlusIcon,
 } from '@heroicons/vue/20/solid'
-import config from '../../twind.config'
+
+// import config from '../../twind.config'
+// install(config)
+
+import MenuDrop from './components/menu-drop.vue'
+import SelectMember from './components/menu-render.vue'
+import Drop from './components/drop.vue'
 
 const el = document.getElementById('app')
-
-// activate twind - must be called at least once
-install(config)
 
 createApp({
   render: renderSpladeApp({ el }),
@@ -41,8 +48,15 @@ createApp({
       InboxIcon,
       Icon,
       UserAccess,
+      MoreHorizontal20Regular,
+      NoteEdit20Regular,
+      Delete20Regular,
       UserPlusIcon,
       DeadlineIcon,
+      // custom components
+      MenuDrop,
+      SelectMember,
+      Drop,
     },
   })
   .mount(el)

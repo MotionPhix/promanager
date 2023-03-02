@@ -11,9 +11,36 @@ class Task extends Model
 {
   use HasFactory;
 
+  protected $fillable = [
+    'name', 'description', 'user_id'
+  ];
+
+  protected $statusColors = [
+    'New' => '#4caf50', // Green
+    'In Progress' => '#2196f3', // Blue
+    'Not Started' => '#ff9800', // Orange
+    'Completed' => '#8bc34a', // Light green
+    'Cancelled' => '#f44336', // Red
+  ];
+
   public function project()
   {
     return $this->belongsTo(Project::class);
+  }
+
+  public function assigned_to()
+  {
+    return $this->belongsTo(User::class);
+  }
+
+  public function status()
+  {
+    return ucwords(str_replace('_', ' ', $this->status));
+  }
+
+  public function getColourAttribute()
+  {
+    return $this->statusColors[$this->status()] ?? '#000000'; // Black
   }
 
   public function comments()

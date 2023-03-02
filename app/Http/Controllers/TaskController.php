@@ -27,7 +27,8 @@ class TaskController extends Controller
 
     return view('tasks.create', [
       'project' => $project,
-      'users' => $users
+      'users' => $users,
+      'task' => $task
     ]);
   }
 
@@ -50,17 +51,21 @@ class TaskController extends Controller
   /**
    * Show the form for editing the specified resource.
    */
-  public function edit(Task $task)
+  public function edit(Project $project, Task $task)
   {
-    //
+    return view('tasks.edit', [
+      'project' => $project,
+      'users' => $task->assignees(),
+      'task' => $task
+    ]);
   }
 
   /**
    * Update the specified resource in storage.
    */
-  public function update(Request $request, Task $task)
+  public function update(Request $request, Project $project, Task $task)
   {
-    //
+    dd($request->all());
   }
 
   /**
