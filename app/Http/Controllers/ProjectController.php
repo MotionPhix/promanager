@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProjectUpdateRequest;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use ProtoneMedia\Splade\Facades\Toast;
 
 class ProjectController extends Controller
 {
@@ -59,7 +61,7 @@ class ProjectController extends Controller
     $this->authorize('view', $project);
 
     return view('projects.show', [
-      'project' => $project
+      'project' => $project->load('owner', 'customer')
     ]);
   }
 
@@ -68,15 +70,26 @@ class ProjectController extends Controller
    */
   public function edit(Project $project)
   {
-    //
+    return view('projects.edit', [
+      'project' => $project,
+      'customers' => \App\Models\Customer::get()
+    ]);
   }
 
   /**
    * Update the specified resource in storage.
    */
-  public function update(Request $request, Project $project)
+  public function update(ProjectUpdateRequest $request, Project $project)
   {
-    //
+    $this->authorize('view', $project);
+
+    $data = $request->only('name', 'description', 'customer_id', 'start_date', 'end_date', 'budget');
+
+    $project->fill($data)->save();
+
+    Toast::autoDismiss(5)->success('Project updated successfully');
+
+    return back();
   }
 
   /**

@@ -2,6 +2,7 @@
   "private": true,
   "scripts": {
     "dev": "vite",
+    "build:unocss": "unocss build",
     "build": "vite build && vite build --ssr"
   },
   "devDependencies": {
@@ -13,6 +14,9 @@
     "@twind/preset-container-queries": "^1.0.7",
     "@twind/preset-tailwind": "^1.1.4",
     "@twind/preset-tailwind-forms": "^1.1.2",
+    "@unocss/reset": "^0.50.3",
+    "@unocss/runtime": "^0.50.3",
+    "@unocss/transformer-variant-group": "^0.50.3",
     "@vicons/carbon": "^0.12.0",
     "@vicons/fluent": "^0.12.0",
     "@vicons/ionicons5": "^0.12.0",
@@ -23,6 +27,7 @@
     "eslint": "^8.34.0",
     "laravel-vite-plugin": "^0.5.0",
     "twind": "^0.16.19",
+    "unocss": "^0.50.3",
     "vfonts": "^0.0.3",
     "vite": "^3.0.0",
     "vite-plugin-windicss": "^1.8.10",

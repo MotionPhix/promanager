@@ -18,7 +18,7 @@ defineExpose({
 
 <template>
   <div class="relative inline-block">
-    <span class="text-white font-bold" @click.stop="dropdown = !dropdown">
+    <span class="text-white font-bold cursor-pointer" @click.stop="dropdown = !dropdown">
       <Icon size="32">
         <!-- <MoreHorizontal20Regular /> -->
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">

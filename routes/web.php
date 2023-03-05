@@ -25,8 +25,8 @@ Route::middleware('splade')->group(function () {
   Route::spladeUploads();
 
   Route::get('/', function () {
-    return view('welcome');
-  });
+    return view('index');
+  })->name('index');
 
   Route::middleware('auth')->group(function () {
     Route::get('/dashboard', function () {
@@ -35,6 +35,9 @@ Route::middleware('splade')->group(function () {
 
     Route::resource('projects', \App\Http\Controllers\ProjectController::class);
     Route::resource('projects.tasks', \App\Http\Controllers\TaskController::class);
+    Route::patch('/projects/{project}/tasks/{task}/partial', [\App\Http\Controllers\TaskController::class, 'partial'])->name('projects.tasks.partial');
+
+    Route::resource('reports', \App\Http\Controllers\ReportController::class);
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

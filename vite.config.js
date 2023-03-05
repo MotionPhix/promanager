@@ -2,7 +2,8 @@ import { defineConfig } from 'vite'
 import laravel from 'laravel-vite-plugin'
 import vue from '@vitejs/plugin-vue'
 
-import WindiCSS from 'vite-plugin-windicss'
+// import WindiCSS from 'vite-plugin-windicss'
+// import Unocss from 'unocss/vite'
 
 export default defineConfig({
   plugins: [
@@ -19,7 +20,8 @@ export default defineConfig({
         },
       },
     }),
-    WindiCSS(),
+    // WindiCSS(),
+    // Unocss(),
   ],
   ssr: {
     noExternal: ['vue', '@protonemedia/laravel-splade'],

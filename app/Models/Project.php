@@ -11,10 +11,19 @@ class Project extends Model
 {
   use HasFactory;
 
+  protected $fillable = [
+    'name', 'description', 'start_date', 'end_date',
+    'budget', 'customer_id'
+  ];
+
   protected $casts = [
-    'budget' => 'decimal:2',
     'end_date' => 'date:Y-m-d'
   ];
+
+  public function getCommenceAttribute()
+  {
+    return date('d M, Y', strtotime($this->start_date));
+  }
 
   public function getDeadlineAttribute()
   {
@@ -40,7 +49,12 @@ class Project extends Model
 
   public function owner()
   {
-    return $this->belongsTo(User::class);
+    return $this->belongsTo(User::class, 'user_id');
+  }
+
+  public function customer()
+  {
+    return $this->belongsTo(Customer::class);
   }
 
   public function progress()
@@ -52,23 +66,25 @@ class Project extends Model
       return 0;
     }
 
-    return ($completedTasks / $totalTasks) * 100;
+    return round(($completedTasks / $totalTasks) * 100, 2);
   }
 
-  public function getProgressColorAttribute()
+  public function getProgressColourAttribute()
   {
-    if ($this->progress() < 50) {
+    if ($this->progress() >= 1 && $this->progress() < 30) {
       return 'orange';
-    } elseif ($this->progress() >= 50 && $this->progress() < 100) {
+    } elseif ($this->progress() >= 30 && $this->progress() < 60) {
       return 'blue';
-    } else {
-      return 'red';
+    } elseif ($this->progress() >= 60 && $this->progress() <= 100) {
+      return 'green';
     }
+
+    return 'rose';
   }
 
-  public function getBudgetAttribute($value)
+  public function getProjectBudgetAttribute()
   {
-    return 'Mk' . number_format($value, 2);
+    return 'Mk' . number_format($this->budget, 2);
   }
 
   public function tasks()
@@ -79,6 +95,9 @@ class Project extends Model
   public function members()
   {
     return $this->hasManyThrough(User::class, Task::class, 'project_id', 'id', 'id', 'user_id');
+    // ->orWhere(function ($query) {
+    //   $query->where('projects.user_id', $this->user_id);
+    // });
   }
 
   public function scopeViewableBy($query, $user)
@@ -108,5 +127,24 @@ class Project extends Model
             });
         });
     });
+  }
+
+  public function getCommissionAttribute()
+  {
+    // Get the owner of the project
+    $owner = $this->owner;
+
+    // Check if the owner has a sales role
+    // if ($owner->hasRole(['sales'])) {
+      // Get the commission rate for sales
+      $commissionRate = 5;
+
+      // Calculate the commission amount based on the project cost and commission rate
+      $commissionAmount = round($this->budget * $commissionRate / 100, 2);
+
+      return 'Mk ' . number_format($commissionAmount, 2);
+    // }
+
+    return 0;
   }
 }

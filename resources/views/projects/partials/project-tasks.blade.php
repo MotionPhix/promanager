@@ -1,72 +1,129 @@
-<!-- component -->
 <section class="bg-white dark:bg-gray-900">
   <div class="container mb-4 mx-auto">
     <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
 
       @foreach ($project->tasks as $task)
 
+        <section class="flex flex-col p-4 bg-gray-700 group rounded-xl hover:bg-gray-800 transition duration-300 ease-in-out">
+          <h4 class="text-white font-semibold leading-6 mb-1">
+            {{ $task->name }}
+          </h4>
 
-      <section class="flex flex-col p-4 bg-[{{ $task->colour }}] group rounded-xl hover:bg-[{{ $task->colour }}]/75 transition duration-200">
-        <h4 class="text-white font-semibold leading-6 mb-1">
-          {{ $task->name }}
-        </h4>
+          <div class="flex justify-between items-center mb-4">
+            <div class="flex gap-1 items-center">
+              <span class="h-2 w-2 bg-[{{ $task->colour }}] rounded-full" />
+              <span class="text-xs font-medium text-[{{ $task->colour }}]/90">{{ $task->status() }}</span>
+            </div>
 
-        <div class="flex justify-between items-center mb-4">
-          <div class="flex items-center">
-            <span class="h-2 w-2 mr-1 bg-white/70 rounded-full"></span>
-          <span class="text-xs font-medium text-[{{ $task->color }}]/80">{{ $task->status() }}</span>
+            <Drop v-slot="{ dropdown, toggleDropdown }">
+              <div v-if="dropdown" class="absolute divide-y right-0 top-7 bg-white z-10 rounded-lg border-gray-300 py-1 w-auto">
+                <Link class="px-2 flex items-center gap-2 hover:bg-gray-200" preserve-scroll href="{{ route('projects.tasks.edit', ['project' => $project, 'task' => $task]) }}" modal>
+                  <Icon>
+                    <Edit />
+                  </Icon> <span>Edit</span>
+                </Link>
+
+                <x-splade-form
+                  confirm="Do you really want to delete this task?"
+                  confirm-text="Please enter your password to confirm you would like to permanently delete the task"
+                  confirm-button="Yes"
+                  cancel-button="No!"
+                  :action="route('projects.tasks.destroy', [$project, $task])"
+                  method="delete"
+                  preserve-scroll
+                  :key="$task->id"
+                >
+                  <button class="px-2 flex w-full items-center gap-2 hover:bg-gray-200">
+                    <Icon>
+                      <Delete20Regular />
+                    </Icon> <span>Delete</span>
+                  </button>
+                </x-splade-form>
+
+                <Link
+                  class="px-2 flex items-center gap-2 hover:bg-gray-200"
+                  href="#re-assign"
+                  preserve-scroll>
+                  <Icon>
+                    <UserRole />
+                  </Icon> <span>Reassign</span>
+                </Link>
+              </div>
+            </Drop>
           </div>
 
-          <Drop v-slot="{ dropdown, toggleDropdown }">
-            <div v-if="dropdown" class="absolute divide-y right-0 top-7 bg-white z-10 rounded-lg border-gray-300 py-1 ">
-              <Link class="px-2 flex items-center gap-2 hover:bg-gray-200" preserve-scroll href="{{ route('projects.tasks.edit', ['project' => $project, 'task' => $task]) }}" modal>
-                <Icon>
-                  <NoteEdit20Regular />
-                </Icon> <span>Edit</span>
-              </Link>
+          <p class="text-sm text-gray-200 leading-normal mb-5 group-hover:(text-gray-300 font-semibold) transition duration-300 ease-in-out">
+            {{ $task->description }}
+          </p>
 
-              <Link class="px-2 flex items-center gap-2 hover:bg-gray-200" preserve-scroll href="{{ route('projects.tasks.edit', ['project' => $project, 'task' => $task]) }}" modal>
-                <Icon>
-                  <Delete20Regular />
-                </Icon> <span>Delete</span>
-              </Link>
-            </div>
-          </Drop>
-        </div>
+          <span class="flex-1" />
 
-        <p class="text-sm text-gray-200 leading-normal mb-5 group-hover:(text-gray-500 font-semibold) transition duration-300">
-          {{ $task->description }}
-        </p>
+          <div class="pt-4 border-t border-gray-500">
+            <div class="flex flex-wrap items-center justify-between -m-2">
+              <div class="w-auto p-2">
+                <div class="flex items-center p-2 bg-gray-600 rounded-md">
 
-        <span class="flex-1" />
-
-        <div class="pt-4 border-t border-gray-500">
-          <div class="flex flex-wrap items-center justify-between -m-2">
-            <div class="w-auto p-2">
-              <div class="flex items-center p-2 bg-gray-500 rounded-md">
-                <svg width="14" height="14" viewbox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M11.0001 2.33337H3.00008C2.2637 2.33337 1.66675 2.93033 1.66675 3.66671V11.6667C1.66675 12.4031 2.2637 13 3.00008 13H11.0001C11.7365 13 12.3334 12.4031 12.3334 11.6667V3.66671C12.3334 2.93033 11.7365 2.33337 11.0001 2.33337Z" stroke="#3D485B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                  <path d="M9.66675 1V3.66667" stroke="#3D485B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                  <path d="M4.3335 1V3.66667" stroke="#3D485B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                  <path d="M1.66675 6.33337H12.3334" stroke="#3D485B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                  <path d="M6.3335 9H7.00016" stroke="#3D485B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                  <path d="M7 9V11" stroke="#3D485B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                </svg>
-                <span class="ml-2 text-xs font-medium text-gray-200">
-                  {{ $task->created_at->diffForHumans() }}
-                </span>
+                  <span class="ml-2 text-xs font-medium text-gray-200">
+                    {{ $task->updated_at->diffForHumans() }}
+                  </span>
+                </div>
               </div>
-            </div>
 
-            <div class="w-auto p-2">
-              <div class="flex h-full items-center">
-                <img class="w-7 h-7 rounded-full object-cover" src="trizzle-assets/images/avatar-men-circle-border.png" alt="">
-                <img class="w-7 h-7 -ml-3 rounded-full object-cover" src="trizzle-assets/images/avatar-women-circle-border.png" alt="">
+              <div class="w-auto p-2">
+                <div class="flex gap-1 text-xs items-center text-gray-300">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-5" viewBox="0 0 1024 1024">
+                    <path d="M858.5 763.6a374 374 0 0 0-80.6-119.5a375.63 375.63 0 0 0-119.5-80.6c-.4-.2-.8-.3-1.2-.5C719.5 518 760 444.7 760 362c0-137-111-248-248-248S264 225 264 362c0 82.7 40.5 156 102.8 201.1c-.4.2-.8.3-1.2.5c-44.8 18.9-85 46-119.5 80.6a375.63 375.63 0 0 0-80.6 119.5A371.7 371.7 0 0 0 136 901.8a8 8 0 0 0 8 8.2h60c4.4 0 7.9-3.5 8-7.8c2-77.2 33-149.5 87.8-204.3c56.7-56.7 132-87.9 212.2-87.9s155.5 31.2 212.2 87.9C779 752.7 810 825 812 902.2c.1 4.4 3.6 7.8 8 7.8h60a8 8 0 0 0 8-8.2c-1-47.8-10.9-94.3-29.5-138.2zM512 534c-45.9 0-89.1-17.9-121.6-50.4S340 407.9 340 362c0-45.9 17.9-89.1 50.4-121.6S466.1 190 512 190s89.1 17.9 121.6 50.4S684 316.1 684 362c0 45.9-17.9 89.1-50.4 121.6S557.9 534 512 534z" fill="currentColor"></path>
+                  </svg>
+
+                  <span>
+                    {{ $task->user_id === auth()->user()->id ? 'Me' : $task->user->name}}
+                  </span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+
+        {{-- re-assign modal --}}
+        <x-splade-modal name="re-assign" max-width="sm" :close-button="false">
+
+          <h2 class="font-semibold text-xl mb-4">Re-assign task</h2>
+
+          <x-splade-form
+            class="flex flex-col gap-5"
+            :action="route('projects.tasks.partial', [$project, $task])"
+            preserve-scroll
+            method="patch">
+
+            <x-splade-select
+              name="assigned_to"
+              label="Assign task to"
+              choices="{ searchEnabled: false }">
+
+              <option value="" disabled>Pick a user to be re-assigned the task</option>
+
+              <option value="{{ Auth::user()->id }}">Me</option>
+
+              @foreach ($task->assignees() as $user)
+                <option value="{{ $user->id }}">
+                  {{ $user->name }}
+                </option>
+              @endforeach
+            </x-splade-select>
+
+            <div class="flex justify-end gap-2">
+              <button type="button" class="btn btn-outline" @click="modal.close">Cancel</button>
+
+              <x-splade-submit class="flex items-center gap-2 btn">
+                <Icon>
+                  <UserRole />
+                </Icon> <span>Re-assign</span>
+              </x-splade-submit>
+            </div>
+
+          </x-splade-form>
+
+        </x-splade-modal>
 
       @endforeach
 

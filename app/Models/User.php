@@ -73,4 +73,9 @@ class User extends Authenticatable
   {
     return $this->roles()->whereIn('slug', $roleSlugs)->count() > 0;
   }
+
+  public function projects()
+  {
+    return $this->hasManyThrough(Project::class, Task::class);
+  }
 }

@@ -21,7 +21,7 @@ class ProjectPolicy
    */
   public function view(User $user, Project $project): bool
   {
-    if ($user->hasRole(['admin'])) {
+    if ($user->hasRole(['admin', 'manager'])) {
       return true;
     }
 

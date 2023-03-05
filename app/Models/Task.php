@@ -12,7 +12,7 @@ class Task extends Model
   use HasFactory;
 
   protected $fillable = [
-    'name', 'description', 'user_id'
+    'name', 'description', 'status', 'user_id', 'project_id'
   ];
 
   protected $statusColors = [
@@ -23,12 +23,38 @@ class Task extends Model
     'Cancelled' => '#f44336', // Red
   ];
 
+  public static function getStatuses()
+  {
+    return collect([
+      [
+        'name' => 'New',
+        'slug' => 'new',
+      ],
+      [
+        'name' => 'Not Started',
+        'slug' => 'not_started',
+      ],
+      [
+        'name' => 'In Progress',
+        'slug' => 'in_progress',
+      ],
+      [
+        'name' => 'Completed',
+        'slug' => 'completed',
+      ],
+      [
+        'name' => 'Cancelled',
+        'slug' => 'cancelled',
+      ],
+    ]);
+  }
+
   public function project()
   {
     return $this->belongsTo(Project::class);
   }
 
-  public function assigned_to()
+  public function user()
   {
     return $this->belongsTo(User::class);
   }
