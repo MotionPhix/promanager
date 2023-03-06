@@ -23,11 +23,16 @@ class TaskController extends Controller
   /**
    * Show the form for creating a new resource.
    */
-  public function create(Project $project)
+  public function create(Request $request, Project $project)
   {
-    // $this->authorize('create', [auth()->user()->id, $project->id]);
+    $user = $request->user();
 
-    if (Gate::allows('create')) {
+    if (
+      $user->roles->first()->slug === 'admin'
+      || $user->roles->first()->slug === 'manager'
+      || $user->id === $project->user_id
+      || $project->members->contains($user)
+    ) {
 
       $task = new Task();
       $users = $task->assignees();
@@ -39,6 +44,8 @@ class TaskController extends Controller
         'statuses' => $task::getStatuses()
       ]);
     }
+
+    return Toast::autoDismiss(10)->danger('You don\'t have permission to create tasks for this project');
   }
 
   /**
@@ -46,19 +53,27 @@ class TaskController extends Controller
    */
   public function store(TaskStoreRequest $request, Project $project)
   {
-    $this->authorize('create', [Task::class, $project]);
+    $user = $request->user();
 
-    $task = new Task();
+    if (
+      $user->roles->first()->slug === 'admin'
+      || $user->roles->first()->slug === 'manager'
+      || $user->id === $project->user_id
+      || $project->members->contains($user)
+    ) {
 
-    $data = $request->only('name', 'description', 'status');
-    $data['user_id'] = $request->get('assigned_to');
-    $data['project_id'] = $project->id;
+      $data = $request->only('name', 'description', 'status');
+      $data['user_id'] = $request->get('assigned_to');
+      $data['project_id'] = $project->id;
 
-    Task::create($data);
+      Task::create($data);
 
-    Toast::autoDismiss(5)->success('Task added successfully!');
+      Toast::autoDismiss(5)->success('Task added successfully!');
 
-    return redirect()->route('projects.show', $project->id);
+      return redirect()->route('projects.show', $project->id);
+    }
+
+    return Toast::autoDismiss(10)->danger('You don\'t have permission to create tasks for this project');
   }
 
   /**

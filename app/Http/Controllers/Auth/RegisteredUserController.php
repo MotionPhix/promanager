@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use ProtoneMedia\Splade\Facades\SEO;
 
 class RegisteredUserController extends Controller
 {
@@ -20,6 +21,8 @@ class RegisteredUserController extends Controller
    */
   public function create()
   {
+    SEO::title('Progex — Register');
+
     $roles = \App\Models\Role::orderBy('name')->pluck('name', 'id');
     return view('auth.register', compact($roles));
   }

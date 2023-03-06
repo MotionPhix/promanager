@@ -7,6 +7,7 @@ use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use ProtoneMedia\Splade\Facades\SEO;
 use ProtoneMedia\Splade\Facades\Toast;
 
 class ProjectController extends Controller
@@ -16,8 +17,9 @@ class ProjectController extends Controller
    */
   public function index()
   {
-    // $projects = Project::latest()->paginate();
-    // $projects = Project::viewableBy(Auth::user())->get();
+
+    SEO::title('Progex — Project list')
+      ->description('Projects that you are allowed to view. Either you created them yourself or you are a part of the team');
 
     $user = auth()->user();
 
@@ -58,6 +60,9 @@ class ProjectController extends Controller
    */
   public function show(Project $project)
   {
+    SEO::title('Progex — ' . $project->name)
+      ->description($project->description);
+
     $this->authorize('view', $project);
 
     return view('projects.show', [
@@ -70,6 +75,8 @@ class ProjectController extends Controller
    */
   public function edit(Project $project)
   {
+    $this->authorize('update', $project);
+
     return view('projects.edit', [
       'project' => $project,
       'customers' => \App\Models\Customer::get()

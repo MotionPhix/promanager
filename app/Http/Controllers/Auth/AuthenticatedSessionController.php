@@ -7,46 +7,50 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use ProtoneMedia\Splade\Facades\SEO;
 
 class AuthenticatedSessionController extends Controller
 {
-    /**
-     * Display the login view.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function create()
-    {
-        return view('auth.login');
-    }
+  /**
+   * Display the login view.
+   *
+   * @return \Illuminate\View\View
+   */
+  public function create()
+  {
+    SEO::title('Progex — Login')
+      ->description('Login to your account to start managing your projects');
 
-    /**
-     * Handle an incoming authentication request.
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function store(LoginRequest $request)
-    {
-        $request->authenticate();
+    return view('auth.login');
+  }
 
-        $request->session()->regenerate();
+  /**
+   * Handle an incoming authentication request.
+   *
+   * @return \Illuminate\Http\RedirectResponse
+   */
+  public function store(LoginRequest $request)
+  {
+    $request->authenticate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
-    }
+    $request->session()->regenerate();
 
-    /**
-     * Destroy an authenticated session.
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function destroy(Request $request)
-    {
-        Auth::guard('web')->logout();
+    return redirect()->intended(RouteServiceProvider::HOME);
+  }
 
-        $request->session()->invalidate();
+  /**
+   * Destroy an authenticated session.
+   *
+   * @return \Illuminate\Http\RedirectResponse
+   */
+  public function destroy(Request $request)
+  {
+    Auth::guard('web')->logout();
 
-        $request->session()->regenerateToken();
+    $request->session()->invalidate();
 
-        return redirect('/');
-    }
+    $request->session()->regenerateToken();
+
+    return redirect('/');
+  }
 }

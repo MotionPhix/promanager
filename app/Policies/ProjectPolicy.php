@@ -51,7 +51,9 @@ class ProjectPolicy
    */
   public function update(User $user, Project $project): bool
   {
-    return $user->hasAccess(['update-project']) or $user->id == $project->user_id;
+    return $user->roles->first()->slug === 'admin'
+      || $user->roles->first()->slug === 'manager'
+      || $user->id == $project->user_id;
   }
 
   /**

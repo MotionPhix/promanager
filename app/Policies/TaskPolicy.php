@@ -34,10 +34,13 @@ class TaskPolicy
   /**
    * Determine whether the user can create models.
    */
-  public function create(User $user, \App\Models\Project $project): bool
+  public function create(User $user, Task $task, \App\Models\Project $project): bool
   {
-    dd($user);
-    return $user->hasRole(['admin', 'manager']) || $project->user_id === $user->id || $project->members()->contains($user);
+    return true;
+    return $user->roles->first()->slug === 'admin'
+      || $user->roles->first()->slug === 'manager'
+      || $user->id === $project->user_id
+      || $project->members->contains($user);
   }
 
   /**

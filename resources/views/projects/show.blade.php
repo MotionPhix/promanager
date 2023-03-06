@@ -82,7 +82,7 @@
                                 fill="currentColor"></path></g></svg>
 
                               <div class="max-w-md mx-auto text-center mt-2 space-y-5">
-                                <h2 class="text-2xl font-semibold">It&rsquo;s a bit empty here</h2>
+                                <h2 class="text-2xl font-semibold">It's a bit empty here</h2>
 
                                 <p class="text-neutral-500">
                                   Create a task for this project and then assign one of the users available in the system.
@@ -101,7 +101,8 @@
                                     stroke-linecap="round"
                                     stroke-linejoin="round"><path
                                     d="M12 5v14"></path><path
-                                    d="M5 12h14"></path></g></svg> <span>Add your first task</span>
+                                    d="M5 12h14"></path></g>
+                                  </svg> <span>Add your first task</span>
                                 </Link>
                               </div>
                               </div>
@@ -134,13 +135,13 @@
               <section class="w-full md:w-1/3 px-4 mb-8">
                 <div class="bg-white rounded-lg shadow overflow-hidden relative">
                   <div class="px-4 py-4 border-y">
-                    <h3 class="text-lg font-semibold">Project Details</h3>
+                    <h3 class="text-lg font-semibold">Project details</h3>
                   </div>
 
                   <div class="px-4 py-4 space-y-2 divide-y">
                     <p class="text-sm text-gray-600">
                       <span class="block font-bold">
-                        Start Date
+                        Start date
                       </span>
 
                       <span class="block">
@@ -160,7 +161,7 @@
 
                     <p class="text-sm text-gray-600 pt-2">
                       <span class="block font-bold">
-                        Contact Person
+                        Contact person
                       </span>
 
                       <span class="block">
@@ -182,7 +183,7 @@
                       href="{{ route('profile.edit') }}"
                       preserve-scroll>
                       <span class="block font-bold">
-                        Project Owner
+                        Project owner
                       </span>
 
                       <div class="flex items-center justify-between">
@@ -191,9 +192,15 @@
                           {{ $project->owner->name }}
                         </span>
 
-                        <span class="block font-bold text-gray-300 border px-2 py-1 rounded">
-                          {{ $project->commission }}
-                        </span>
+                        @if(
+                          $project->owner->roles->first()->slug === 'admin' ||
+                          $project->owner->roles->first()->slug === 'manager' ||
+                          $project->user_id === Auth::user()->id
+                        )
+                          <span class="block font-bold text-gray-300 border px-2 py-1 rounded">
+                            {{ $project->commission }}
+                          </span>
+                        @endif
 
                       </div>
 
