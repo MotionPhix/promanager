@@ -193,9 +193,8 @@
                         </span>
 
                         @if(
-                          $project->owner->roles->first()->slug === 'admin' ||
-                          $project->owner->roles->first()->slug === 'manager' ||
-                          $project->user_id === Auth::user()->id
+                          $project->user_id === Auth::user()->id ||
+                          Auth::user()->hasAnyRole(['sales', 'admin', 'manager'])
                         )
                           <span class="block font-bold text-gray-300 border px-2 py-1 rounded">
                             {{ $project->commission }}
