@@ -8,7 +8,9 @@ import { install } from '@twind/core'
 
 import '@protonemedia/laravel-splade/dist/style.css'
 
-import 'vfonts/FiraSans.css'
+// import 'vfonts/FiraSans.css'
+import 'vfonts/Inter.css'
+import 'vfonts/FiraCode.css'
 import { Icon } from '@vicons/utils'
 
 import UserAccess from '@vicons/carbon/UserAccess'

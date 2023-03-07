@@ -1,9 +1,9 @@
 <x-splade-modal max-width="lg">
 
-  <h2 class="font-semibold text-xl mb-4">Add new task</h2>
+  <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4 sm:mb-5">Add new task</h3>
 
   <x-splade-form
-    class="flex flex-col gap-3"
+    class="flex flex-col gap-5"
     action="{{ route('projects.tasks.store', $project) }}"
     :default="[
       'task' => $task,
@@ -18,7 +18,7 @@
       placeholder="What's the task"
       name="name" />
 
-    <x-splade-group name="status" label="Pick a status for the task..." inline>
+    <x-splade-group name="status" label="Task status" inline>
       @foreach ($statuses as $status)
         <x-splade-radio name="status" value="{{ $status['slug'] }}" label="{{ $status['name'] }}" />
       @endforeach
@@ -32,10 +32,10 @@
 
     <x-splade-select
       name="assigned_to"
-      label="Assign task to"
+      label="Assign task"
       choices="{ searchEnabled: false }">
 
-      <option value="" disabled>Select a user to assign this task to...</option>
+      <option value="" disabled>Select a user to be assigned this task</option>
 
       <option value="{{ Auth::user()->id }}">Me</option>
 

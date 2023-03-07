@@ -26,7 +26,7 @@ class Task extends Model
   {
     return collect([
       [
-        'name' => 'Not Started',
+        'name' => 'New',
         'slug' => 'not_started',
       ],
       [

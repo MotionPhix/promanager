@@ -15,6 +15,7 @@ export default defineConfig({
   theme: {
     fontFamily: {
       sans: 'v-sans',
+      mono: 'v-mono',
     },
   },
 
