@@ -23,22 +23,28 @@
                   </Icon> <span>Edit</span>
                 </Link>
 
-                <x-splade-form
-                  confirm="Do you really want to delete this task?"
-                  confirm-text="Please enter your password to confirm you would like to permanently delete the task"
-                  confirm-button="Yes"
-                  cancel-button="No!"
-                  :action="route('projects.tasks.destroy', [$project, $task])"
-                  method="delete"
+                {{-- <Link
+                  class="px-4 py-1.5 flex items-center gap-2 hover:bg-gray-200"
                   preserve-scroll
-                  key="{{ $task->id }}"
-                >
-                  <button class="px-4 py-1.5 flex w-full items-center gap-2 hover:bg-gray-200">
-                    <Icon>
-                      <Delete20Regular />
-                    </Icon> <span>Delete</span>
-                  </button>
-                </x-splade-form>
+                  href="#delete-task">
+                  <Icon>
+                    <Delete20Regular />
+                  </Icon> <span>Delete</span>
+                </Link> --}}
+
+                {{-- <x-splade-modal
+                  name="delete-task"
+                  max-width="sm"> --}}
+                  <x-splade-form
+                    confirm
+                    preserve-scroll
+                    require-password
+                  >
+                    <button type="submit">
+                      Delete
+                    </button>
+                  </x-splade-form>
+                {{-- </x-splade-modal> --}}
 
                 <Link
                   class="px-4 py-1.5 flex items-center gap-2 hover:bg-gray-200"
