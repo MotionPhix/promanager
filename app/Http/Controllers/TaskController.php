@@ -113,19 +113,29 @@ class TaskController extends Controller
    */
   public function update(TaskUpdateRequest $request, Project $project, Task $task)
   {
-    $this->authorize('update', $project);
+    $user = $request->user();
 
-    $data = $request->only('name', 'description', 'status');
-    $data['user_id'] = $request->assigned_to;
-    $data['project_id'] = $project->id;
+    if (
+      $user->hasAnyRole(['admin', 'manager'])
+      || $user->id === $project->user_id
+      || $user->tasks->contains($task)
+    ) {
+      $data = $request->only('name', 'description', 'status');
+      $data['user_id'] = $request->assigned_to;
+      $data['project_id'] = $project->id;
 
-    // $task->fill($data)->save();
-    $task->update($data);
+      // $task->fill($data)->save();
+      $task->update($data);
 
-    Toast::autoDismiss(5)
-      ->success('Task updated!');
+      Toast::autoDismiss(5)
+        ->success('Task updated!');
 
-    return back();
+      return back();
+    }
+
+    Toast::autoDismiss(10)->danger('You don\'t have access to update this task');
+
+    return redirect()->route('projects.show', $project);
   }
 
   /**
