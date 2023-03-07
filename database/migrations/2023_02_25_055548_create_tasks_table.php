@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name', 50);
             $table->text('description')->nullable();
-            $table->enum('status', ['new', 'not_started', 'in_progress', 'completed', 'cancelled'])->default('not_started');
+            $table->enum('status', ['not_started', 'in_progress', 'completed', 'cancelled'])->default('not_started');
 
             $table->foreignId('project_id')->index()->constrained('projects')->onDelete('cascade');
             $table->foreignId('user_id')->index()->constrained('users');

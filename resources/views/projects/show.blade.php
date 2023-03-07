@@ -1,4 +1,3 @@
-{{-- /* @unocss-include */ --}}
 <x-app-layout>
   <x-slot name="header">
     <h2 class="font-semibold flex gap-1 items-center text-xl text-gray-800 leading-tight">
@@ -194,7 +193,7 @@
 
                         @if(
                           $project->user_id === Auth::user()->id ||
-                          Auth::user()->hasAnyRole(['sales', 'admin', 'manager'])
+                          Auth::user()->hasAnyRole(['admin', 'manager'])
                         )
                           <span class="block font-bold text-gray-300 border px-2 py-1 rounded">
                             {{ $project->commission }}

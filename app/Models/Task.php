@@ -16,7 +16,6 @@ class Task extends Model
   ];
 
   protected $statusColors = [
-    'New' => '#4caf50', // Green
     'In Progress' => '#2196f3', // Blue
     'Not Started' => '#ff9800', // Orange
     'Completed' => '#8bc34a', // Light green
@@ -26,10 +25,6 @@ class Task extends Model
   public static function getStatuses()
   {
     return collect([
-      [
-        'name' => 'New',
-        'slug' => 'new',
-      ],
       [
         'name' => 'Not Started',
         'slug' => 'not_started',

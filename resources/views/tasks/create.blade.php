@@ -1,4 +1,4 @@
-<x-splade-modal max-width="md">
+<x-splade-modal max-width="lg">
 
   <h2 class="font-semibold text-xl mb-4">Add new task</h2>
 
@@ -18,21 +18,7 @@
       placeholder="What's the task"
       name="name" />
 
-    {{-- <x-splade-select
-      name="status"
-      label="Task status"
-      choices="{ searchEnabled: false }">
-
-      <option value="" disabled>Select a status for the task...</option>
-
-      @foreach ($statuses as $status)
-        <option value="{{ $status['slug'] }}">
-          {{ $status['name'] }}
-        </option>
-      @endforeach
-    </x-splade-select> --}}
-
-    <x-splade-group name="status" label="Pick a status for the task...">
+    <x-splade-group name="status" label="Pick a status for the task..." inline>
       @foreach ($statuses as $status)
         <x-splade-radio name="status" value="{{ $status['slug'] }}" label="{{ $status['name'] }}" />
       @endforeach

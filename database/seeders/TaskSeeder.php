@@ -22,7 +22,7 @@ class TaskSeeder extends Seeder
       $task->name = ucfirst(fake()->words(3, true));
 
       $task->description = fake()->paragraph(2);
-      $task->status = fake()->randomElement(['new', 'not_started', 'in_progress', 'completed', 'cancelled']);
+      $task->status = fake()->randomElement(['not_started', 'in_progress', 'completed', 'cancelled']);
       // $task->due_date = fake()->dateTimeBetween('now', '+1 ' . fake()->randomElement(['day', 'week', 'month']));
       $task->project_id = $projects->random();
       $task->user_id = $users->random();
