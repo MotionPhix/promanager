@@ -129,27 +129,38 @@ class TaskController extends Controller
   }
 
   /**
-   * Update the specified resource in storage.
+   * Reassign user to the specified resource in storage.
    */
   public function partial(Request $request, Project $project, Task $task)
   {
-    $this->authorize('assign_user', $project);
+    $user = $request->user();
 
-    // Define custom error messages
-    $messages = [
-      'assigned_to.required' => 'Please pick a user to re-assign this task to',
-    ];
+    if (
+      $user->hasAnyRole(['admin', 'manager'])
+      || $user->id === $project->user_id
+      || $user->hasAccess(['assign_member'])
+    ) {
 
-    $request->validate([
-      'assigned_to' => 'bail|required|integer',
-    ], $messages);
+      // Define custom error messages
+      $messages = [
+        'assigned_to.required' => 'Please pick a user to re-assign this task to',
+      ];
 
-    $task->update(['user_id' => $request->assigned_to]);
+      $request->validate([
+        'assigned_to' => 'bail|required|integer',
+      ], $messages);
 
-    Toast::autoDismiss(5)
-      ->success('Task re-assigned!');
+      $task->update(['user_id' => $request->assigned_to]);
 
-    return back();
+      Toast::autoDismiss(5)
+        ->success('Task re-assigned!');
+
+      return back();
+    }
+
+    Toast::autoDismiss(10)->danger('You don\'t have permission to re-assign a user to this task');
+
+    return redirect()->route('projects.show', $project);
   }
 
   /**

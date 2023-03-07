@@ -25,9 +25,9 @@ class Role extends Model
   public function hasAccess(array $permissions): bool
   {
     foreach ($permissions as $permission) {
-      if ($this->hasPermission($permission))
-        return true;
+      return $this->hasPermission($permission);
     }
+
     return false;
   }
 
@@ -38,12 +38,13 @@ class Role extends Model
 
   public function givePermissionTo($permission, $value = true)
   {
-    $permission = Permission::where('name', $permission)->firstOrCreate();
+    $permission = Permission::where('slug', $permission)->first();
 
     $permissions = $this->permissions;
     $permissions[$permission->slug] = $value;
 
     $this->permissions = $permissions;
+
     $this->save();
   }
 }

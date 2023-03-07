@@ -58,6 +58,7 @@ class User extends Authenticatable
         return true;
       }
     }
+
     return false;
   }
 
@@ -89,12 +90,6 @@ class User extends Authenticatable
     }
     return false;
   }
-
-  // public function hasRole($role)
-  // {
-  //   return $this->roles()->where('slug', $role)->count() > 0;
-  // }
-
 
   public function projects()
   {
