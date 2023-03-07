@@ -28,8 +28,7 @@ class TaskController extends Controller
     $user = $request->user();
 
     if (
-      $user->roles->first()->slug === 'admin'
-      || $user->roles->first()->slug === 'manager'
+      $user->hasAnyRole(['admin', 'manager'])
       || $user->id === $project->user_id
       || $project->members->contains($user)
     ) {
@@ -56,8 +55,7 @@ class TaskController extends Controller
     $user = $request->user();
 
     if (
-      $user->roles->first()->slug === 'admin'
-      || $user->roles->first()->slug === 'manager'
+      $user->hasAnyRole(['admin', 'manager'])
       || $user->id === $project->user_id
       || $project->members->contains($user)
     ) {
@@ -87,17 +85,27 @@ class TaskController extends Controller
   /**
    * Show the form for editing the specified resource.
    */
-  public function edit(Project $project, Task $task)
+  public function edit(Request $request, Project $project, Task $task)
   {
-    $this->authorize('edit', $project);
+    $user = $request->user();
 
-    return view('tasks.edit', [
-      'project' => $project,
-      'users' => $task->assignees(),
-      'statuses' => $task->getStatuses(),
-      'task' => $task,
-      'assigned_to' => $task->user->id
-    ]);
+    if (
+      $user->hasAnyRole(['admin', 'manager'])
+      || $user->id === $project->user_id
+      || $project->members->contains($user)
+    ) {
+      return view('tasks.edit', [
+        'project' => $project,
+        'users' => $task->assignees(),
+        'statuses' => $task->getStatuses(),
+        'task' => $task,
+        'assigned_to' => $task->user->id
+      ]);
+    }
+
+    Toast::autoDismiss(10)->danger('You don\'t have permission to edit this task');
+
+    return redirect()->route('projects.show', $project);
   }
 
   /**

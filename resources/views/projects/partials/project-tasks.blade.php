@@ -16,8 +16,8 @@
             </div>
 
             <Drop v-slot="{ dropdown, toggleDropdown }">
-              <div v-if="dropdown" class="absolute divide-y right-0 top-7 bg-white z-10 rounded-lg border-gray-300 py-1 w-auto">
-                <Link class="px-2 flex items-center gap-2 hover:bg-gray-200" preserve-scroll href="{{ route('projects.tasks.edit', ['project' => $project, 'task' => $task]) }}" modal>
+              <div v-if="dropdown" class="absolute divide-y overflow-hidden right-0 top-7 bg-white z-10 rounded-lg border-gray-300 py-1 w-auto">
+                <Link class="px-2 py-1.5 flex items-center gap-2 hover:bg-gray-200" preserve-scroll href="{{ route('projects.tasks.edit', ['project' => $project, 'task' => $task]) }}" modal>
                   <Icon>
                     <Edit />
                   </Icon> <span>Edit</span>
@@ -31,9 +31,8 @@
                   :action="route('projects.tasks.destroy', [$project, $task])"
                   method="delete"
                   preserve-scroll
-                  :key="$task->id"
                 >
-                  <button class="px-2 flex w-full items-center gap-2 hover:bg-gray-200">
+                  <button class="px-2 py-1.5 flex w-full items-center gap-2 hover:bg-gray-200">
                     <Icon>
                       <Delete20Regular />
                     </Icon> <span>Delete</span>
@@ -41,7 +40,7 @@
                 </x-splade-form>
 
                 <Link
-                  class="px-2 flex items-center gap-2 hover:bg-gray-200"
+                  class="px-2 py-1.5 flex items-center gap-2 hover:bg-gray-200"
                   href="#re-assign"
                   preserve-scroll>
                   <Icon>
@@ -52,7 +51,7 @@
             </Drop>
           </div>
 
-          <p class="text-sm text-gray-200 leading-normal mb-5 group-hover:(text-gray-300 font-semibold) transition duration-300 ease-in-out">
+          <p class="text-sm text-gray-200 leading-normal mb-5 group-hover:(text-gray-300) transition duration-300 ease-in-out">
             {{ $task->description }}
           </p>
 

@@ -9,7 +9,9 @@ import { install } from '@twind/core'
 import '@protonemedia/laravel-splade/dist/style.css'
 
 // import 'vfonts/FiraSans.css'
-import 'vfonts/Inter.css'
+// import 'vfonts/Inter.css'
+// import 'vfonts/Roboto.css'
+import 'vfonts/RobotoSlab.css'
 import 'vfonts/FiraCode.css'
 import { Icon } from '@vicons/utils'
 
@@ -34,10 +36,9 @@ import {
 } from '@heroicons/vue/20/solid'
 
 import config from '../../twind.config'
-
 import MenuDrop from './components/menu-drop.vue'
-import SelectMember from './components/menu-render.vue'
 import Drop from './components/drop.vue'
+
 install(config)
 
 const el = document.getElementById('app')
@@ -66,7 +67,6 @@ createApp({
       DeadlineIcon,
       // custom components
       MenuDrop,
-      SelectMember,
       Drop,
     },
   })
