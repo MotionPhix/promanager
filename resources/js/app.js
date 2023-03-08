@@ -10,8 +10,8 @@ import '@protonemedia/laravel-splade/dist/style.css'
 
 // import 'vfonts/FiraSans.css'
 // import 'vfonts/Inter.css'
-// import 'vfonts/Roboto.css'
-import 'vfonts/RobotoSlab.css'
+import 'vfonts/Roboto.css'
+// import 'vfonts/RobotoSlab.css'
 import 'vfonts/FiraCode.css'
 import { Icon } from '@vicons/utils'
 

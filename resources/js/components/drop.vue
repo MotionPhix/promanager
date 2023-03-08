@@ -8,11 +8,22 @@ const dropdownHandler = () => {
   dropdown.value = false
 }
 
+const submitForm = (targetForm) => {
+  // Access the form using the ref
+  const form = ref(targetForm)
+
+  console.log(targetForm)
+
+  // Submit the form
+  // form.value.submit()
+}
+
 onClickOutside(dropdown, dropdownHandler)
 
 // Expose variables and functions
 defineExpose({
   dropdown,
+  submitForm,
 })
 </script>
 
@@ -30,6 +41,6 @@ defineExpose({
       </Icon>
     </span>
 
-    <slot :dropdown="dropdown" :dropdown-handler="dropdownHandler" />
+    <slot :dropdown="dropdown" :ask="submitForm" :dropdown-handler="dropdownHandler" />
   </div>
 </template>

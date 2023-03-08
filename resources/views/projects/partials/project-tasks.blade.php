@@ -2,7 +2,7 @@
   <div class="container mb-4 mx-auto">
     <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
 
-      @foreach ($project->tasks as $task)
+      @foreach ($project->tasks as $key => $task)
 
         <section class="flex flex-col p-4 bg-gray-700 group rounded-xl hover:bg-gray-800 transition duration-300 ease-in-out">
           <h4 class="text-white font-semibold leading-6 mb-1">
@@ -15,47 +15,36 @@
               <span class="text-xs font-medium text-[{{ $task->colour }}]/90">{{ $task->status() }}</span>
             </div>
 
-            <Drop v-slot="{ dropdown, toggleDropdown }">
-              <div v-if="dropdown" class="absolute divide-y overflow-hidden right-0 top-7 bg-white z-10 rounded-lg border-gray-300 py-1 w-auto">
-                <Link class="px-4 py-1.5 flex items-center gap-2 hover:bg-gray-200" preserve-scroll href="{{ route('projects.tasks.edit', ['project' => $project, 'task' => $task]) }}" modal>
-                  <Icon>
-                    <Edit />
-                  </Icon> <span>Edit</span>
-                </Link>
+            <article class="flex items-center gap-1">
 
-                {{-- <Link
-                  class="px-4 py-1.5 flex items-center gap-2 hover:bg-gray-200"
-                  preserve-scroll
-                  href="#delete-task">
-                  <Icon>
+              <Drop v-slot="{ dropdown, toggleDropdown, ask }">
+                <div v-if="dropdown" class="absolute divide-y overflow-hidden right-0 top-7 bg-white z-10 rounded-lg border-gray-300 py-1 w-auto">
+                  <Link class="px-4 py-1.5 flex items-center gap-2 hover:bg-gray-200" preserve-scroll href="{{ route('projects.tasks.edit', ['project' => $project, 'task' => $task]) }}" modal>
+                    <Icon>
+                      <Edit />
+                    </Icon> <span>Edit</span>
+                  </Link>
+
+                  <Link
+                    class="px-4 py-1.5 flex items-center gap-2 hover:bg-gray-200"
+                    href="#re-assign"
+                    preserve-scroll>
+                    <Icon>
+                      <UserRole />
+                    </Icon> <span>Reassign</span>
+                  </Link>
+                </div>
+              </Drop>
+
+              <x-splade-form confirm require-password="password_confirmation">
+                <button class="rounded-md h-6 w-6 bg-white p-1 hover:(bg-rose-500 text-white) transition duration-300 ease-in-out" type="submit">
+                  <Icon size="16">
                     <Delete20Regular />
-                  </Icon> <span>Delete</span>
-                </Link> --}}
+                  </Icon>
+                </button>
+              </x-splade-form>
 
-                {{-- <x-splade-modal
-                  name="delete-task"
-                  max-width="sm"> --}}
-                  <x-splade-form
-                    confirm
-                    preserve-scroll
-                    require-password
-                  >
-                    <button type="submit">
-                      Delete
-                    </button>
-                  </x-splade-form>
-                {{-- </x-splade-modal> --}}
-
-                <Link
-                  class="px-4 py-1.5 flex items-center gap-2 hover:bg-gray-200"
-                  href="#re-assign"
-                  preserve-scroll>
-                  <Icon>
-                    <UserRole />
-                  </Icon> <span>Reassign</span>
-                </Link>
-              </div>
-            </Drop>
+            </article>
           </div>
 
           <p class="text-sm text-gray-200 leading-normal mb-5 group-hover:(text-gray-300) transition duration-300 ease-in-out">
