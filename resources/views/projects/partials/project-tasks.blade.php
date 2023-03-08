@@ -36,7 +36,11 @@
                 </div>
               </Drop>
 
-              <x-splade-form confirm require-password="password_confirmation">
+              <x-splade-form
+                :confirm-danger="__('Sure you want to delete this task?')"
+                :confirm-text="__('This action is irreversible. Please enter your password to confirm.')"
+                :confirm-button="__('Delete task')"
+                require-password="password_confirmation">
                 <button class="rounded-md h-6 w-6 bg-white p-1 hover:(bg-rose-500 text-white) transition duration-300 ease-in-out" type="submit">
                   <Icon size="16">
                     <Delete20Regular />
