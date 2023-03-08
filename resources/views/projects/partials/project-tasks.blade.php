@@ -33,20 +33,38 @@
                       <UserRole />
                     </Icon> <span>Reassign</span>
                   </Link>
+
+                  <Link
+                    class="px-4 py-1.5 flex w-full items-center gap-2 hover:bg-gray-200"
+                    href="{{ route('projects.tasks.destroy', [$project, $task]) }}"
+                    confirm-danger="Enter the danger zone..."
+                    confirm-text="Are you sure?"
+                    confirm-button="Yes, take me there!"
+                    cancel-button="No, keep me save!"
+                    require-password
+                    method="delete"
+                    preserve-scroll>
+                    <Icon>
+                      <Delete20Regular />
+                    </Icon> <span>Delete</span>
+                  </Link>
                 </div>
               </Drop>
 
-              <x-splade-form
-                :confirm-danger="__('Sure you want to delete this task?')"
-                :confirm-text="__('This action is irreversible. Please enter your password to confirm.')"
+              {{-- <x-splade-form
+                :confirm-danger="__('Sure to delete this task?')"
+                :confirm-text="__('This action is irreversible. Enter your password to confirm.')"
+                :action="route('projects.tasks.destroy', [$project, $task])"
+                require-password="password_confirmation"
                 :confirm-button="__('Delete task')"
-                require-password="password_confirmation">
+                preserve-scroll
+                method="delete">
                 <button class="rounded-md h-6 w-6 bg-white p-1 hover:(bg-rose-500 text-white) transition duration-300 ease-in-out" type="submit">
                   <Icon size="16">
                     <Delete20Regular />
                   </Icon>
                 </button>
-              </x-splade-form>
+              </x-splade-form> --}}
 
             </article>
           </div>

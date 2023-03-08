@@ -150,7 +150,6 @@ class TaskController extends Controller
       || $user->id === $project->user_id
       || $user->hasAccess(['assign_member'])
     ) {
-
       // Define custom error messages
       $messages = [
         'assigned_to.required' => 'Please pick a user to re-assign this task to',
@@ -178,18 +177,21 @@ class TaskController extends Controller
    */
   public function destroy(Request $request, Project $project, Task $task)
   {
-    // $request->validateWithBag('taskDeletion', [
-    //   'password' => ['required', 'current-password'],
-    // ]);
+    $user = $request->user();
 
-    dd($task);
+    if (
+      $user->hasAnyRole(['admin', 'manager'])
+      || $user->id === $project->user_id
+      || $user->id === $task->user_id
+      || $user->hasAccess(['delete_task'])
+    ) {
+      // Delete the task
+      $task->delete();
 
-    // Delete the task
-    $task->delete();
+      Toast::autoDismiss(5)->title('Awesome!')->message('Task deleted successfully.');
 
-    Toast::autoDismiss(5)->info('Task deleted successfully!');
-
-    // Return a response
-    return back();
+      // Return a response
+      return back();
+    }
   }
 }

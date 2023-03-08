@@ -1,7 +1,7 @@
 <SpladeConfirm default-title="{{ __('Are you sure you want to continue?') }}" default-text="" default-password-text="{{ __('Please confirm your password before continuing') }}" default-confirm-button="{{ __('Confirm') }}" default-cancel-button="{{ __('Cancel') }}" confirm-password-route="{{ $confirmPasswordRoute ?? "" }}" confirmed-password-status-route="{{ $confirmedPasswordStatusRoute ?? "" }}">
   <template #default="confirm">
     <x-splade-component is="transition" show="confirm.isOpen">
-      <x-splade-component is="dialog" class="relative z-30" close="confirm.setIsOpen(false)">
+      <x-splade-component is="dialog" class="relative z-30">
         <x-splade-component is="transition" child animation="opacity" class="fixed z-30 inset-0 bg-black/75" />
 
         <div class="fixed z-40 inset-0 overflow-y-auto">
@@ -9,7 +9,7 @@
             <x-splade-component is="transition" child animation="fade" after-leave="confirm.emitClose">
               <x-splade-component is="dialog" panel class="relative bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:max-w-lg sm:w-full sm:p-6">
                 <div class="sm:flex sm:items-start">
-                  <div class="text-center sm:mt-0 sm:text-left">
+                  <div class="text-center sm:mt-0 sm:text-left w-full">
                     <h3 class="text-lg leading-6 font-medium text-gray-900" v-text="confirm.title" />
                     <div class="mt-2" v-if="confirm.text">
                       <p class="text-sm text-gray-500" v-text="confirm.text" />
