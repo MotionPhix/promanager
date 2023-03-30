@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProjectUpdateRequest;
+use App\Http\Requests\StoreProjectRequest;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -86,7 +86,7 @@ class ProjectController extends Controller
   /**
    * Update the specified resource in storage.
    */
-  public function update(ProjectUpdateRequest $request, Project $project)
+  public function update(StoreProjectRequest $request, Project $project)
   {
     $this->authorize('view', $project);
 

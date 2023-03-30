@@ -35,9 +35,14 @@ import {
   UserPlusIcon,
 } from '@heroicons/vue/20/solid'
 
+import Alpine from 'alpinejs'
 import config from '../../twind.config'
 import MenuDrop from './components/menu-drop.vue'
 import Drop from './components/drop.vue'
+
+window.Alpine = Alpine
+
+Alpine.start()
 
 install(config)
 

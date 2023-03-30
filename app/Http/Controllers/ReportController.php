@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Project;
 use App\Models\Report;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,10 @@ class ReportController extends Controller
      */
     public function index()
     {
-        //
+      return view('index', [
+        'projects' => Project::with('customer:id,name')->latest()->limit(6)->orderBy('created_at')->orderBy('end_date')->get(['id', 'customer_id', 'name', 'end_date', 'description']),
+        'projectsCount' => Project::count()
+      ]);
     }
 
     /**
