@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {
     "dev": "vite",
-    "build:unocss": "unocss build",
+    "uno": "unocss \"./vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php\" \"./vendor/protonemedia/laravel-splade/lib/**/*.vue\" \"./vendor/protonemedia/laravel-splade/resources/views/**/*.blade.php\" \"./storage/framework/views/*.php\" \"./resources/views/**/*.blade.php\" \"./resources/js/**/*.vue\" -o \"./resources/css/uno.css\" -w",
     "build": "vite build && vite build --ssr"
   },
   "devDependencies": {
