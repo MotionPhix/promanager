@@ -26,7 +26,9 @@ Route::middleware('splade')->group(function () {
 
   Route::middleware('auth')->group(function () {
 
-    Route::get('/', [\App\Http\Controllers\ReportController::class, 'index'])->name('index');
+    Route::get('/', function (\App\Actions\GetLatestProjects $getLatestProjects) {
+      return $getLatestProjects();
+    })->name('index');
 
     Route::get('/dashboard', function () {
       return view('dashboard.index');

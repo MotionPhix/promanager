@@ -1,14 +1,14 @@
 @props(['path' => '#', 'as' => 'Link'])
 
 @php
-$classes = 'w-1/2 xl:w-full';
+$classes = 'group w-1/2 xl:w-full';
 @endphp
 
-<{{ $as }} class="group" href="{{ $path !== '#' ? route($path) : $path }}" preserve-scroll {{ $attributes->class($classes) }} role="link" tabindex="-1">
+<{{ $as }} href="{{ $path !== '#' ? route($path) : $path }}" preserve-scroll {{ $attributes->class($classes) }} role="link">
   <div class="p-6 rounded-xl hover:bg-gray-200 cursor-pointer transition duration-300">
     <div class="flex w-full">
       <div class="ml-6 first:ml-0">
-        <svg aria-hidden="true" class="text-gray-200 transition duration-300 group-hover:text-gray-400" height="48" style="display: block;" viewBox="0 0 48 48" width="48">
+        <svg aria-hidden="true" class="text-gray-200 transition duration-300 group-hover:text-gray-400" height="48" viewBox="0 0 48 48" width="48">
           <rect height="48" ry="12" style="fill: currentcolor;" width="48"></rect>
           <svg height="27.839999999999996" width="27.839999999999996" x="21%" y="21%">
             {{ $icon }}

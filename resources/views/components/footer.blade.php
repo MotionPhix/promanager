@@ -1,17 +1,19 @@
-<section class="bg-white overflow-hidden">
+<section class="overflow-hidden bg-white">
   <div class="container px-4 mx-auto">
 
     <div class="border-b" />
 
-    <div class="flex flex-wrap justify-between items-center py-6 -m-4">
+    <div class="flex flex-wrap items-center justify-between py-6 -m-4">
       <div class="w-auto p-4">
-        <a href="#">
+        <Link href="{{ route('index') }}">
           <x-application-logo class="h-7" />
-        </a>
+        </Link>
       </div>
+
       <div class="w-auto p-4">
-        <p class="text-sm text-gray-600 font-medium">Copyright &copy; {{ date('Y', strtotime(now())) }} Onreels. All Rights Reserved</p>
+        <p class="text-sm font-medium text-gray-600">Copyright &copy; {{ date('Y', strtotime(now())) }} Onreels. All Rights Reserved</p>
       </div>
+
       <div class="w-auto p-4">
         <div class="flex flex-wrap -m-4">
           <div class="w-auto p-4">
@@ -21,6 +23,7 @@
               </svg>
             </a>
           </div>
+
           <div class="w-auto p-4">
             <a class="text-indigo-600 hover:text-indigo-700" href="#">
               <svg width="16" height="16" viewbox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -28,6 +31,7 @@
               </svg>
             </a>
           </div>
+
           <div class="w-auto p-4">
             <a class="text-blueGray-400 hover:text-blueGray-500" href="#">
               <svg width="16" height="15" viewbox="0 0 16 15" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -35,6 +39,7 @@
               </svg>
             </a>
           </div>
+
           <div class="w-auto p-4">
             <a class="text-blueGray-400 hover:text-blueGray-500" href="#">
               <svg width="15" height="13" viewbox="0 0 15 13" fill="none" xmlns="http://www.w3.org/2000/svg">

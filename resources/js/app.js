@@ -1,8 +1,7 @@
 import './bootstrap'
-import { install } from '@twind/core'
 
 // import 'virtual:windi.css'
-// import '@unocss/reset/tailwind-compat.css'
+import '../css/app.css'
 // import '@unocss/reset/tailwind.css'
 // import 'uno.css'
 
@@ -36,15 +35,10 @@ import {
 } from '@heroicons/vue/20/solid'
 
 import Alpine from 'alpinejs'
-import config from '../../twind.config'
-import MenuDrop from './components/menu-drop.vue'
-import Drop from './components/drop.vue'
 
 window.Alpine = Alpine
 
 Alpine.start()
-
-install(config)
 
 const el = document.getElementById('app')
 
@@ -70,9 +64,6 @@ createApp({
       NoteEdit20Regular,
       Delete20Regular,
       DeadlineIcon,
-      // custom components
-      MenuDrop,
-      Drop,
     },
   })
   .mount(el)

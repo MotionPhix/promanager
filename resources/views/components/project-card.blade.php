@@ -1,12 +1,12 @@
 {{-- <Link href="{{ route('projects.show', $project) }}">
-  <div class="relative p-6 h-full bg-white border hover:border-gray-300 rounded-xl">
-    <img class="absolute left-0 top-0" src="flaro-assets/images/career/gradient.svg" alt="">
+  <div class="relative h-full p-6 bg-white border hover:border-gray-300 rounded-xl">
+    <img class="absolute top-0 left-0" src="flaro-assets/images/career/gradient.svg" alt="">
     <div class="relative z-10 flex flex-col justify-between h-full">
-      <div class="mb-24 flex-1">
-        <h3 class="mb-2 text-lg font-bold font-heading leading-snug">
+      <div class="flex-1 mb-24">
+        <h3 class="mb-2 text-lg font-bold leading-snug font-heading">
           {{ $project->name }}
         </h3>
-        <p class="text-sm text-gray-500 font-medium">
+        <p class="text-sm font-medium text-gray-500">
           <span>Contractor</span>
           <span class="px-2">&bull;</span>
           <span>{{ $project->customer->name }}</span>
@@ -35,7 +35,7 @@
         <x-phosphor-buildings-bold class="w-4" />
 
         <span>
-          {{ $project->company_name }}
+          {{ $project->customer->name }}
         </span>
       </p>
     </div>
@@ -49,7 +49,7 @@
 
   <section class="flex items-center justify-end gap-2 text-sm font-semibold text-gray-500">
     <x-phosphor-clock-clockwise-bold class="w-4" />
-    <span>clos{{ $project->end_date->lt(now()) ? 'ed ' : 'es ' . $project->end_date->diffForHumans() }}</span>
+    <span>clos{{ $project->end_date > now() ? 'es ' : 'ed ' . $project->end_date->diffForHumans() }}</span>
   </section>
 
 </div>

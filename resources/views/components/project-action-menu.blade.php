@@ -7,7 +7,15 @@
   </button>
 
   <!-- Dropdown menu -->
-  <div x-show="open" class="absolute z-10 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow top-1 right-1 w-44 dark:bg-gray-700">
+  <div
+    x-show="open"
+    x-transition:enter="transition ease-out duration-200"
+    x-transition:enter-start="opacity-0 transform scale-90"
+    x-transition:enter-end="opacity-100 transform scale-100"
+    x-transition:leave="transition ease-in duration-100"
+    x-transition:leave-start="opacity-100 transform scale-100"
+    x-transition:leave-end="opacity-0 transform scale-90"
+    class="absolute z-10 text-base bg-white divide-y divide-gray-100 rounded-lg shadow -top-1 -right-2 w-44 dark:bg-gray-700">
     <ul class="py-2" aria-labelledby="dropdownButton">
       <li>
         <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Edit</a>
@@ -20,8 +28,9 @@
       <li>
         <button
           type="button"
-          wire:click="delete"
-          class="w-full px-4 py-2 text-sm text-left text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete</a>
+          class="w-full px-4 py-2 text-sm text-left text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+          Delete
+        </button>
       </li>
     </ul>
   </div>
