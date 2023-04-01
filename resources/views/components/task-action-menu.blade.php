@@ -19,24 +19,34 @@
     <ul class="py-2" aria-labelledby="dropdownButton">
       <li>
         <Link
+          modal
           preserve-scroll
-          href="{{ route('projects.edit', $project) }}"
+          href="{{ route('projects.tasks.edit', ['project' => $task->project, 'task' => $task]) }}"
           class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
-          <x-phosphor-pencil-simple-line-bold class="w-5" /> <span>Edit</span>
+          <x-phosphor-pencil-simple-line-bold class="h-5" /> <span>Edit</span>
         </Link>
       </li>
 
-      {{-- <li>
-        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Export Data</a>
-      </li> --}}
+      <li>
+        <Link
+          preserve-scroll
+          href="#re-assign"
+          class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+          <x-phosphor-user-circle-plus-bold class="h-5" /> <span>Re-assign</span>
+        </Link>
+      </li>
 
       <li>
         <Link
           preserve-scroll
           method="delete"
-          href="{{ route('projects.destroy', $project) }}"
+          require-password
+          confirm-button="Delete task"
+          confirm-danger="Sure you want to delete this task?"
+          href="{{ route('projects.tasks.destroy', [$task->project, $task]) }}"
+          confirm-text="This action is irreversible. Please enter your password to confirm."
           class="flex items-center gap-2 px-4 py-2 text-sm text-left text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
-          <x-phosphor-trash-simple-bold class="w-5" /> <span>Delete</span>
+          <x-phosphor-trash-simple-bold class="5-5" /> <span>Delete</span>
         </Link>
       </li>
     </ul>

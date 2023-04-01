@@ -10,48 +10,19 @@
           </h4>
 
           <div class="flex justify-between items-center mb-4">
-            <div class="flex gap-1 items-center">
-              <span class="h-2 w-2 bg-[{{ $task->colour }}] rounded-full" />
-              <span class="text-xs font-medium text-[{{ $task->colour }}]/90">{{ $task->status() }}</span>
+            <div class="flex gap-2 items-center">
+              <span class="h-2 w-2 bg-['{{ $task->colour }}'] rounded-full" />
+              <span class="text-xs font-medium text-['{{ $task->colour }}']/90">{{ $task->status() }}</span>
             </div>
 
             <article class="flex items-center gap-1">
 
-              <Drop v-slot="{ dropdown, toggleDropdown, ask }">
-                <div v-if="dropdown" class="absolute divide-y overflow-hidden right-0 top-7 bg-white z-10 rounded-lg border-gray-300 py-1 w-auto">
-                  <Link class="px-4 py-1.5 flex items-center gap-2 hover:bg-gray-200" preserve-scroll href="{{ route('projects.tasks.edit', ['project' => $project, 'task' => $task]) }}" modal>
-                    <Icon>
-                      <Edit />
-                    </Icon> <span>Edit</span>
-                  </Link>
-
-                  <Link
-                    class="px-4 py-1.5 flex items-center gap-2 hover:bg-gray-200"
-                    href="#re-assign"
-                    preserve-scroll>
-                    <Icon>
-                      <UserRole />
-                    </Icon> <span>Reassign</span>
-                  </Link>
-                </div>
-              </Drop>
-
-              <x-splade-form
-                :confirm-danger="__('Sure you want to delete this task?')"
-                :confirm-text="__('This action is irreversible. Please enter your password to confirm.')"
-                :confirm-button="__('Delete task')"
-                require-password="password_confirmation">
-                <button class="rounded-md h-6 w-6 bg-white p-1 hover:(bg-rose-500 text-white) transition duration-300 ease-in-out" type="submit">
-                  <Icon size="16">
-                    <Delete20Regular />
-                  </Icon>
-                </button>
-              </x-splade-form>
+              <x-task-action-menu :task="$task" />
 
             </article>
           </div>
 
-          <p class="text-sm text-gray-200 leading-normal mb-5 group-hover:(text-gray-300) transition duration-300 ease-in-out">
+          <p class="text-sm text-gray-200 leading-normal line-clamp-2 mb-5 group-hover:(text-gray-300) transition duration-300 ease-in-out">
             {{ $task->description }}
           </p>
 
@@ -114,9 +85,7 @@
               <button type="button" class="btn btn-outline px-4" @click="modal.close">Cancel</button>
 
               <x-splade-submit class="flex items-center gap-2 btn">
-                <Icon>
-                  <UserRole />
-                </Icon> <span>Re-assign</span>
+                <x-phosphor-user-circle-plus-bold class="w-5" /> <span>Re-assign</span>
               </x-splade-submit>
             </div>
 

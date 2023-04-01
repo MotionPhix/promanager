@@ -27,6 +27,7 @@ import {
 } from '@heroicons/vue/20/solid'
 
 import Alpine from 'alpinejs'
+import { UseDark } from '@vueuse/components'
 import ToggleDark from './components/toggle-dark.vue'
 
 window.Alpine = Alpine
@@ -51,6 +52,7 @@ createApp({
       UserPlusIcon,
       DeadlineIcon,
       ToggleDark,
+      UseDark,
     },
   })
   .mount(el)

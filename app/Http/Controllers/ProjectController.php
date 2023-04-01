@@ -21,19 +21,21 @@ class ProjectController extends Controller
     SEO::title('Progex — Project list')
       ->description('Projects that you are allowed to view. Either you created them yourself or you are a part of the team');
 
-    $user = auth()->user();
+    $currentUser = auth()->user();
+    // $authorization = Gate::inspect('viewAny', Project::class);
+    $this->authorize('viewAny', Project::class);
 
-    if (Gate::allows('view-all-projects')) {
-      // User has permission to view all projects
-      $projects = Project::all();
-    } else {
-      // User can only view projects they created or are assigned to
-      $projects = Project::where('user_id', $user->id)
-        ->orWhereHas('tasks', function ($query) use ($user) {
-          $query->where('user_id', $user->id);
-        })
-        ->get();
-    }
+    // if ($authorization->denied()) {
+    // $projects = Project::where('user_id', $currentUser->id)
+    //   ->orWhereHas('tasks', function ($query) use ($currentUser) {
+    //     $query->where('user_id', $currentUser->id);
+    //   })
+    //   ->get();
+    // }
+
+    $projects = $currentUser->createdProjects()->with('owner')->orWhereHas('tasks', function ($query) use ($currentUser) {
+      $query->where('user_id', $currentUser->id);
+    })->get();
 
     return view('projects.index', compact('projects'));
   }

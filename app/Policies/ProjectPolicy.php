@@ -13,7 +13,11 @@ class ProjectPolicy
    */
   public function viewAny(User $user): bool
   {
-    return $user->hasRole(['admin']);
+    return $user->can('view-all-projects') || $user->projects()->exists();
+      // $user->tasks()->exists();
+      // Project::whereHas('tasks', function ($query) use ($user) {
+      //   $query->where('user_id', $user->id);
+      // })->exists();
   }
 
   /**
@@ -21,7 +25,7 @@ class ProjectPolicy
    */
   public function view(User $user, Project $project): bool
   {
-    if ($user->hasRole(['admin', 'manager'])) {
+    /*if ($user->hasRole(['admin', 'manager'])) {
       return true;
     }
 
@@ -35,7 +39,10 @@ class ProjectPolicy
       }
     }
 
-    return false;
+    return false;*/
+
+    // return $user->can('view', $project);
+    return $user->can('view-all-projects') || $user->id === $project->user_id || $project->tasks()->where('user_id', $user->id)->exists();
   }
 
   /**

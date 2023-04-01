@@ -1,3 +1,25 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .btn {
+    @apply outline outline-1 flex items-center gap-2 rounded font-semibold px-1.5 py-0.5 transition ease-in-out duration-300
+  }
+
+  .btn-primary {
+    @apply text-gray-300 dark:text-gray-400 bg-gray-600 dark:bg-gray-600 dark:hover:text-gray-300 dark:hover:bg-gray-500 hover:text-gray-300 hover:bg-blue-600
+  }
+
+  .btn-outline {
+    @apply outline-gray-500 dark:outline-gray-400 dark:hover:outline-gray-400 dark:hover:text-gray-400 hover:text-gray-500
+  }
+
+  .btn-lg {
+    @apply py-5 px-5 text-2xl
+  }
+
+  .explainer {
+    @apply text-xs text-gray-400
+  }
+}

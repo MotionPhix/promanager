@@ -91,13 +91,32 @@ class User extends Authenticatable
     return false;
   }
 
+  public function createdProjects()
+  {
+    return $this->hasMany(Project::class);
+  }
+
   public function projects()
   {
-    return $this->hasManyThrough(Project::class, Task::class);
+    return $this->hasManyThrough(Project::class, Task::class, 'user_id', 'id', 'id', 'project_id');
   }
 
   public function tasks()
   {
     return $this->hasMany(Task::class);
+  }
+
+  public function scopeMyProjects($query)
+  {
+    return Project::where(function ($query) {
+      $query->where('user_id', $this->id)
+        ->orWhereIn('id', function ($subquery) {
+          $subquery->select('project_id')
+            ->from('tasks')
+            ->where('user_id', $this->id);
+        });
+    })
+      ->with('owner')
+      ->get();
   }
 }
